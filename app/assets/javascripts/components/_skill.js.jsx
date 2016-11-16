@@ -41,7 +41,15 @@ var Skill = React.createClass({
     return (
       <div>
         {name}
-        <p><strong>Level:</strong> {this.props.skill.level}</p>
+        <div className='skill-level'>
+          <button type='button' className="btn btn-default btn-sm">
+            <span className="glyphicon glyphicon-triangle-bottom"></span>
+          </button>
+          <p><strong>Level:</strong> {this.props.skill.level}</p>
+          <button type='button' className="btn btn-default btn-sm">
+            <span className="glyphicon glyphicon-triangle-top"></span>
+          </button>
+        </div>
         {details}
 
         <button onClick={this.props.handleDelete}>Delete</button>
