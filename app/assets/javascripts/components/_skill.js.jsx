@@ -24,15 +24,16 @@ var Skill = React.createClass({
 
       this.props.handleUpdate(skill);
     }
+
     this.setState({editable: !this.state.editable})
   },
 
   handleLevelChange(action) {
     var levels  = ['bad', 'halfbad', 'fantastic'];
-    var level   = this.props.skill.level;
+    var level   = levels.indexOf(this.props.skill.level);
 
-    if (this.levelCanBeChanged(action)) {
-      var skill = this.updatedSkill(action, level)
+    if (this.levelCanBeChanged(action, level)) {
+      var skill = this.updatedSkill(action, level);
       this.props.handleUpdate(skill);
     }
   },
@@ -46,16 +47,11 @@ var Skill = React.createClass({
     var name    = this.props.skill.name;
     var details = this.props.skill.details;
 
-    var newLevel = getNewLevel(action, index)
-
-    return {id: id, name: name, details: details, level: newLevel}
-  },
-
-  getNewLevel(action, index) {
     var levels  = ['bad', 'halfbad', 'fantastic'];
     var change  = action === 'up' ? 1 : -1;
+    var newLevel = action ? levels[index + change] : this.props.skill.level;
 
-    return action ? levels[index + change] : this.props.skill.level;
+    return {id: id, name: name, details: details, level: newLevel}
   },
 
 
