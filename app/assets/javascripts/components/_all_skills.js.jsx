@@ -3,10 +3,6 @@ var AllSkills = React.createClass ({
     this.props.handleDelete(id);
   },
 
-  handleEdit() {
-  console.log('you are in edit!');
-  },
-
   onUpdate(skill) {
     this.props.handleUpdate(skill);
   },

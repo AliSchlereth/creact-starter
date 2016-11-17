@@ -3,17 +3,6 @@ var Skill = React.createClass({
   return {editable: false}
   },
 
-  handleEdit() {
-    if (this.state.editable) {
-      var name    = this.refs.name.value;
-      var details = this.refs.details.value;
-      console.log('in handleEdit', this.state.editable, name, details);
-      this.onUpdate();
-    }
-
-    this.setState({editable: !this.state.editable})
-  },
-
   onUpdate() {
     if (this.state.editable) {
       var skill   = { id: this.props.skill.id,
@@ -46,16 +35,17 @@ var Skill = React.createClass({
     var name    = this.props.skill.name;
     var details = this.props.skill.details;
 
-    var newLevel = this.getNewLevel(action, index);
+    var newLevel = this.getNewLevel(action);
 
     return {id: id, name: name, details: details, level: newLevel}
   },
 
-  getNewLevel(action, index) {
+  getNewLevel(action) {
     var levels  = ['bad', 'halfbad', 'fantastic'];
+    var index   = levels.indexOf(this.props.skill.level);
     var change  = action === 'up' ? 1 : -1;
 
-    return action ? levels[index + change] : this.props.skill.level;
+    return levels[index + change];
   },
 
 
@@ -93,7 +83,7 @@ var Skill = React.createClass({
 
         <button onClick={this.props.handleDelete}>Delete</button>
 
-        <button onClick={this.handleEdit}>{this.state.editable ? 'Submit' : "Edit"}</button>
+        <button onClick={this.onUpdate}>{this.state.editable ? 'Submit' : "Edit"}</button>
       </div>
     )
   }
