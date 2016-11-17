@@ -16,11 +16,10 @@ var Skill = React.createClass({
 
   onUpdate() {
     if (this.state.editable) {
-      var id      = this.props.skill.id;
-      var name    = this.refs.name.value;
-      var details = this.refs.details.value;
-      var level   = this.props.skill.level;
-      var skill   = { id: id, name: name, details: details, level: level}
+      var skill   = { id: this.props.skill.id,
+                      name: this.refs.name.value,
+                      details: this.refs.details.value,
+                      level: this.props.skill.level}
 
       this.props.handleUpdate(skill);
     }
@@ -47,11 +46,16 @@ var Skill = React.createClass({
     var name    = this.props.skill.name;
     var details = this.props.skill.details;
 
-    var levels  = ['bad', 'halfbad', 'fantastic'];
-    var change  = action === 'up' ? 1 : -1;
-    var newLevel = action ? levels[index + change] : this.props.skill.level;
+    var newLevel = this.getNewLevel(action, index);
 
     return {id: id, name: name, details: details, level: newLevel}
+  },
+
+  getNewLevel(action, index) {
+    var levels  = ['bad', 'halfbad', 'fantastic'];
+    var change  = action === 'up' ? 1 : -1;
+
+    return action ? levels[index + change] : this.props.skill.level;
   },
 
 
